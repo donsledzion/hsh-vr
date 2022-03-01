@@ -6,15 +6,22 @@ public class TilesGridController : MonoBehaviour
 {
     [Tooltip("Grid dimensions in meters")]
     [SerializeField] float gridWidth = 15f, gridHeight = 15f; // default grid dimensions in meters
+    [Space]
+    [SerializeField] float tileSize = 0.25f;
+    [SerializeField] float wallPanelSize = 0.5f;
     [SerializeField] float spacing = 0.001f; // default spacing between tiles
     [SerializeField] GameObject tilePrefab;
     [SerializeField] GameObject tilesGridContainer;
     [SerializeField] GameObject snapPointsContainer;
     [SerializeField] GameObject snapPointPrefab;
     [SerializeField] float snapPointScaleFactor = 10f;
+    [Space]
+    [SerializeField] int rows;
+    [SerializeField] int cols;
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -28,67 +35,72 @@ public class TilesGridController : MonoBehaviour
 
     public void GenerateGrid()
     {
-        int rows = (int)(gridWidth / tilePrefab.transform.localScale.z);
-        int cols = (int)(gridHeight / tilePrefab.transform.localScale.x);
+        rows = (int)(gridWidth / tileSize);
+        cols = (int)(gridHeight / tileSize);
 
-        Vector3 tileSizeOffset = new Vector3(
-            (tilePrefab.transform.localScale.x+spacing)/2,
-            0,
-            (tilePrefab.transform.localScale.z + spacing) / 2);
+        Vector3 tileSizeOffset = new Vector3((tileSize) / 2, 0, (tileSize) / 2);
 
-        Vector3 sizeOffset = new Vector3(
-                    -cols * (tilePrefab.transform.localScale.x + spacing) / 2,
-                    0f,
-                    -cols * (tilePrefab.transform.localScale.z + spacing) / 2);
+        Vector3 sizeOffset = new Vector3( -cols * (tileSize) / 2, 0f, -rows * (tileSize) / 2);
 
         Vector3 snapPointScale = new Vector3(spacing, spacing, spacing) * snapPointScaleFactor;
+
+        Vector3 tileScale = new Vector3(tileSize, tilePrefab.transform.localScale.y, tileSize);
+
+        SnapPointType pointType = SnapPointType.Default;
 
         for (int i = 0; i < rows; i++)
         {
             for(int j = 0; j < cols; j++)
             {
-                Vector3 spawnPos = new Vector3(
-                    i * (tilePrefab.transform.localScale.x+spacing),
-                    tilePrefab.transform.localScale.y,
-                    j * (tilePrefab.transform.localScale.z+spacing)) + sizeOffset;
+                pointType = SnapPointType.Default;
+                Vector3 spawnPos = new Vector3( i * (tileSize), tilePrefab.transform.localScale.y,j * (tileSize)) + sizeOffset;
                 GameObject newTile = Instantiate(tilePrefab,spawnPos,tilePrefab.transform.rotation);
+                newTile.transform.localScale = tileScale;
                 newTile.transform.SetParent(tilesGridContainer.transform);
 
-                GameObject snapPoint = Instantiate(snapPointPrefab, spawnPos + tileSizeOffset, snapPointPrefab.transform.rotation);
-                snapPoint.transform.localScale = snapPointScale;
-                snapPoint.transform.SetParent(snapPointsContainer.transform);
+                if ((j % 2) != 0 && (i % 2) != 0)
+                    pointType = SnapPointType.WallGrid;
+
+                InstantiateSnapPoint(spawnPos, tileSizeOffset, snapPointScale, pointType);                
             }
         }
 
         for (int i = 0; i < rows; i++)
         {
             Vector3 spawnPos = new Vector3(
-                       i * (tilePrefab.transform.localScale.x + spacing),
+                       i * (tileSize),
                        tilePrefab.transform.localScale.y,
-                       -1 * (tilePrefab.transform.localScale.z + spacing)) + sizeOffset;
-            GameObject snapPoint = Instantiate(snapPointPrefab, spawnPos + tileSizeOffset, snapPointPrefab.transform.rotation);
-            snapPoint.transform.localScale = snapPointScale;
-            snapPoint.transform.SetParent(snapPointsContainer.transform);
+                       -1 * (tileSize)) + sizeOffset;
+            if ((i % 2) != 0)
+                pointType = SnapPointType.WallGrid;
+            else
+                pointType = SnapPointType.Default;
+            InstantiateSnapPoint(spawnPos, tileSizeOffset, snapPointScale, pointType);
         }
 
         for (int i = 0; i < cols; i++)
         {
             Vector3 spawnPos = new Vector3(
-                       -1 * (tilePrefab.transform.localScale.x + spacing),
+                       -1 * (tileSize),
                        tilePrefab.transform.localScale.y,
-                       i * (tilePrefab.transform.localScale.z + spacing)) + sizeOffset;
-            GameObject snapPoint = Instantiate(snapPointPrefab, spawnPos + tileSizeOffset, snapPointPrefab.transform.rotation);
-            snapPoint.transform.localScale = snapPointScale;
-            snapPoint.transform.SetParent(snapPointsContainer.transform);
+                       i * (tileSize)) + sizeOffset;
+            if ((i % 2) != 0)
+                pointType = SnapPointType.WallGrid;
+            else 
+                pointType = SnapPointType.Default;
+            InstantiateSnapPoint(spawnPos, tileSizeOffset, snapPointScale, pointType);
         }
 
-        Vector3 firstSpawnPos = new Vector3(
-                       -1 * (tilePrefab.transform.localScale.x + spacing),
-                       tilePrefab.transform.localScale.y,
-                       -1 * (tilePrefab.transform.localScale.z + spacing)) + sizeOffset;
-        GameObject firstSnapPoint = Instantiate(snapPointPrefab, firstSpawnPos + tileSizeOffset, snapPointPrefab.transform.rotation);
-        firstSnapPoint.transform.localScale = snapPointScale;
-        firstSnapPoint.transform.SetParent(snapPointsContainer.transform);
+        Vector3 firstSpawnPos = new Vector3(-1 * (tileSize),tilePrefab.transform.localScale.y,-1 * (tileSize)) + sizeOffset;
+        InstantiateSnapPoint(firstSpawnPos, tileSizeOffset, snapPointScale, SnapPointType.WallGrid);
 
+    }
+
+    void InstantiateSnapPoint(Vector3 _spawnPos, Vector3 _tileSizeOffset, Vector3 _snapPointScale, SnapPointType _type)
+    {
+        GameObject snapPoint = Instantiate(snapPointPrefab, _spawnPos + _tileSizeOffset, snapPointPrefab.transform.rotation);
+        snapPoint.transform.localScale = _snapPointScale;        
+        snapPoint.transform.SetParent(snapPointsContainer.transform);
+        snapPoint.GetComponent<SnapPoint>().SetType(_type);
     }
 }

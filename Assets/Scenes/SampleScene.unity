@@ -152,14 +152,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aa417aed9a2054fbe5c33059bcdd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 5
-  gridHeight: 5
+  gridWidth: 25
+  gridHeight: 25
+  tileSize: 0.4
+  wallPanelSize: 0.8
   spacing: 0.01
   tilePrefab: {fileID: 9128274721092349224, guid: 2f731ca0431339a4392ffcc192512ae1, type: 3}
   tilesGridContainer: {fileID: 1666773301}
   snapPointsContainer: {fileID: 1477473679}
   snapPointPrefab: {fileID: 8824015731333569862, guid: ff8c34087577f6b4a887c41164a656af, type: 3}
   snapPointScaleFactor: 10
+  rows: 0
+  cols: 0
 --- !u!4 &626393944
 Transform:
   m_ObjectHideFlags: 0
@@ -497,7 +501,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49b6d5bdcb045e442a93bb6d693fc388, type: 3}
   m_Name: 
@@ -519,7 +523,7 @@ GameObject:
   - component: {fileID: 1814085667}
   - component: {fileID: 1814085669}
   m_Layer: 0
-  m_Name: ObjectSelector
+  m_Name: WallBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,6 +578,7 @@ MonoBehaviour:
   expectedTag: FloorSnapPoint
   wallStartPilePrefab: {fileID: 6061030146324017075, guid: 8a92143d89172a5439b764ac9fb76cac, type: 3}
   wallPanelPrefab: {fileID: 9058089795497339253, guid: bc297ed66ec4b7342acbb879e9411f54, type: 3}
+  tilesGridController: {fileID: 626393943}
 --- !u!1 &2044208913
 GameObject:
   m_ObjectHideFlags: 0
