@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79aa417aed9a2054fbe5c33059bcdd43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 25
-  gridHeight: 25
+  gridWidth: 10
+  gridHeight: 10
   tileSize: 0.4
   wallPanelSize: 0.8
   spacing: 0.01
@@ -161,7 +161,7 @@ MonoBehaviour:
   tilesGridContainer: {fileID: 1666773301}
   snapPointsContainer: {fileID: 1477473679}
   snapPointPrefab: {fileID: 8824015731333569862, guid: ff8c34087577f6b4a887c41164a656af, type: 3}
-  snapPointScaleFactor: 10
+  snapPointScaleFactor: 50
   rows: 0
   cols: 0
 --- !u!4 &626393944
@@ -177,6 +177,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1027621419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1027621420}
+  m_Layer: 0
+  m_Name: WallsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1027621420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027621419}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1088358313
 GameObject:
@@ -553,7 +583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814085666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.669304, y: -14.114702, z: -6.69806}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -579,6 +609,7 @@ MonoBehaviour:
   wallStartPilePrefab: {fileID: 6061030146324017075, guid: 8a92143d89172a5439b764ac9fb76cac, type: 3}
   wallPanelPrefab: {fileID: 9058089795497339253, guid: bc297ed66ec4b7342acbb879e9411f54, type: 3}
   tilesGridController: {fileID: 626393943}
+  wallsContainer: {fileID: 1027621420}
 --- !u!1 &2044208913
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044208913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5081787, y: -1.3474531, z: 16.688232}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1666773302}

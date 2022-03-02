@@ -10,7 +10,7 @@ public class WallBuilder : PointerSelector
     [SerializeField] GameObject wallPanelPrefab;
     WallPanelScaler wallPanelScaler;
     [SerializeField] TilesGridController tilesGridController;
-
+    [SerializeField] Transform wallsContainer;
     GameObject pileInstance;
     GameObject createdWall;
     Transform lastSelection;
@@ -25,6 +25,9 @@ public class WallBuilder : PointerSelector
     // Update is called once per frame
     protected override void Update()
     {
+        if (Input.GetKeyDown(KeyCode.S))
+            SerializeWalls();
+
         base.Update();
         if (_selection != null)
         {
@@ -47,30 +50,21 @@ public class WallBuilder : PointerSelector
                         if (createdWall != null && createdWall.transform.position == _selection.position) return; // TODO
                         // need to implement validation if wall already exists between two points!
                         float rotationAngle = Vector3.SignedAngle(Vector3.right, _selection.position - lastSelection.position, Vector3.up);
-
-                        createdWall = Instantiate(wallPanelPrefab, pileInstance.transform.position, Quaternion.identity);
-                        
-                        createdWall.transform.localEulerAngles =
-                            new Vector3(createdWall.transform.eulerAngles.x, rotationAngle, createdWall.transform.eulerAngles.z);
-                        wallPanelScaler = createdWall.GetComponent<WallPanelScaler>();
-                        wallPanelScaler.ScaleX((_selection.position - lastSelection.transform.position).magnitude);
-                        wallPanelScaler.endingTip.transform.localPosition = new Vector3((_selection.position - pileInstance.transform.position).magnitude, 0, 0);
+                        Vector3 spawnPoint = lastSelection.transform.position;
+                        float scale = (_selection.position - lastSelection.transform.position).magnitude;
+                        //==========================================================================================================================
+                        BuildSection(spawnPoint,rotationAngle,scale);
+                        //==========================================================================================================================
 
                         pileInstance.transform.position = _selection.position;
                         lastSelection = _selection;
-                    }
-                    
+                    }                    
                 }
             }
             else
             {
-                Destroy(_selection);
+                _selection = null;
             }
-        }
-
-        if(isBuilding)
-        {
-
         }
 
         if(Input.GetMouseButtonDown(0))
@@ -88,7 +82,32 @@ public class WallBuilder : PointerSelector
             if(isBuilding)
             {
                 isBuilding = false;
+                Destroy(pileInstance);
             }
         }
+    }
+
+    GameObject BuildSection(Vector3 _spawnPosition, float _rotationAngle, float _scale)
+    {
+        GameObject newSection = Instantiate(wallPanelPrefab, _spawnPosition, Quaternion.identity);
+
+        newSection.transform.localEulerAngles =
+            new Vector3(newSection.transform.eulerAngles.x, _rotationAngle, newSection.transform.eulerAngles.z);
+        wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
+        wallPanelScaler.ScaleX(_scale);
+        wallPanelScaler.endingTip.transform.localPosition = new Vector3(_scale, 0, 0);
+        wallPanelScaler.transform.SetParent(wallsContainer);
+        Debug.Log("Spawned with input:\npos: " + _spawnPosition + "\nrot: " + _rotationAngle + "\nscale: " + _scale );
+        return new GameObject();
+    }
+
+    void SerializeWalls()
+    {
+        Debug.Log("Walls to serialize: " + wallsContainer.transform.childCount);
+    }
+
+    void SerializeWall()
+    {
+
     }
 }
