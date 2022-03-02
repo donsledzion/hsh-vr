@@ -7,14 +7,14 @@ public class TilesGridController : MonoBehaviour
     [Tooltip("Grid dimensions in meters")]
     [SerializeField] float gridWidth = 15f, gridHeight = 15f; // default grid dimensions in meters
     [Space]
-    [SerializeField] float tileSize = 0.25f;
+    [SerializeField] public float tileSize = 0.25f;
     [SerializeField] float wallPanelSize = 0.5f;
     [SerializeField] float spacing = 0.001f; // default spacing between tiles
     [SerializeField] GameObject tilePrefab;
     [SerializeField] GameObject tilesGridContainer;
     [SerializeField] GameObject snapPointsContainer;
     [SerializeField] GameObject snapPointPrefab;
-    [SerializeField] float snapPointScaleFactor = 10f;
+    [SerializeField] float snapPointScaleFactor = 30f;
     [Space]
     [SerializeField] int rows;
     [SerializeField] int cols;

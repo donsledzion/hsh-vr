@@ -18,7 +18,8 @@ public class WallBuilder : PointerSelector
     // Start is called before the first frame update
     void Start()
     {
-        tilesGridController = GameObject.Find("TilesGridController").GetComponent<TilesGridController>();
+        tilesGridController = GameObject.Find("TilesGridController")
+            .GetComponent<TilesGridController>();
     }
 
     // Update is called once per frame
@@ -27,7 +28,8 @@ public class WallBuilder : PointerSelector
         base.Update();
         if (_selection != null)
         {
-            if (_selection.gameObject.CompareTag(expectedTag) && _selection.gameObject.GetComponent<SnapPoint>().type == SnapPointType.WallGrid)
+            if (_selection.gameObject.CompareTag(expectedTag)
+                && _selection.gameObject.GetComponent<SnapPoint>().type == SnapPointType.WallGrid)
             {
                 if (!isBuilding)
                 {
@@ -38,8 +40,12 @@ public class WallBuilder : PointerSelector
                 }
                 else
                 {
-                    if (lastSelection != null)
+                    if (lastSelection != null
+                        && (lastSelection.position - _selection.position).magnitude >= tilesGridController.tileSize
+                        && (lastSelection.position - _selection.position).magnitude < 3* tilesGridController.tileSize)
                     {
+                        if (createdWall != null && createdWall.transform.position == _selection.position) return; // TODO
+                        // need to implement validation if wall already exists between two points!
                         float rotationAngle = Vector3.SignedAngle(Vector3.right, _selection.position - lastSelection.position, Vector3.up);
 
                         createdWall = Instantiate(wallPanelPrefab, pileInstance.transform.position, Quaternion.identity);
@@ -73,11 +79,6 @@ public class WallBuilder : PointerSelector
             {
                 isBuilding = true;
                 lastSelection = _selection;
-
-                //Destroy(pileInstance);
-                //Quaternion directionAngle = Quaternion.FromToRotation(pileInstance.transform.position,Input.mousePosition);
-                /*createdWall = Instantiate(wallPanelPrefab, pileInstance.transform.position, Quaternion.identity);
-                wallPanelScaler = createdWall.GetComponent<WallPanelScaler>();*/
             }
         }
 
