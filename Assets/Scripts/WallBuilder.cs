@@ -96,8 +96,6 @@ public class WallBuilder : PointerSelector
 
         WallPanel wallPanel = newSection.GetComponent<WallPanel>();
         wallPanel.SetParameters(_spawnPosition, _rotationAngle, _scale);
-
-        Debug.Log("Spawned with input:\npos: " + _spawnPosition + "\nrot: " + _rotationAngle + "\nscale: " + _scale );
         return newSection;
     }
 }

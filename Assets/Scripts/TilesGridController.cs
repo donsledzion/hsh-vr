@@ -27,6 +27,12 @@ public class TilesGridController : MonoBehaviour
         }
     }
 
+    public void GenerateGrid(float width, float height)
+    {
+        gridWidth = width;
+        gridHeight = height;
+        GenerateGrid();
+    }
     public void GenerateGrid()
     {
         rows = (int)(gridWidth / tileSize);
