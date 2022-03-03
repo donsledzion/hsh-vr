@@ -23,12 +23,6 @@ public class CreationUIController : MonoBehaviour
         bgImage = GetComponent<RawImage>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SelectGridSize()
     {
         newOrLoadButtons.SetActive(false);
@@ -39,17 +33,19 @@ public class CreationUIController : MonoBehaviour
     {
         float sizeX, sizeY;
 
-
-
         float.TryParse(inputSizeX.GetComponent<TMP_InputField>().text, out sizeX);
         float.TryParse(inputSizeY.GetComponent<TMP_InputField>().text, out sizeY);
 
-        Debug.Log("Parsed: " + sizeX + ", " + sizeY);
         gridController.GenerateGrid(sizeX, sizeY);
 
         bgImage.enabled = false;
         selectNewSize.SetActive(false);
     }
 
+    public void LoadGame()
+    {
+        bgImage.enabled = false;
+        newOrLoadButtons.SetActive(false);
+    }
 
 }

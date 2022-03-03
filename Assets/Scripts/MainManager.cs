@@ -68,12 +68,12 @@ public class MainManager : MonoBehaviour
         }
     }
 
-    public void LoadSavedData(string slotName)
+    public void LoadSavedData(string slotName="default")
     {
         LoadWallsData(slotName);
     }
 
-    public void SaveData(string slotName)
+    public void SaveData(string slotName="default")
     {
         SerializeWalls(slotName);
     }
