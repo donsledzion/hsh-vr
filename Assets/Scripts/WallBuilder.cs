@@ -25,9 +25,6 @@ public class WallBuilder : PointerSelector
     // Update is called once per frame
     protected override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-            SerializeWalls();
-
         base.Update();
         if (_selection != null)
         {
@@ -76,7 +73,6 @@ public class WallBuilder : PointerSelector
             }
         }
 
-
         if(Input.GetMouseButtonUp(0))
         {
             if(isBuilding)
@@ -87,7 +83,7 @@ public class WallBuilder : PointerSelector
         }
     }
 
-    GameObject BuildSection(Vector3 _spawnPosition, float _rotationAngle, float _scale)
+    public GameObject BuildSection(Vector3 _spawnPosition, float _rotationAngle, float _scale)
     {
         GameObject newSection = Instantiate(wallPanelPrefab, _spawnPosition, Quaternion.identity);
 
@@ -97,17 +93,11 @@ public class WallBuilder : PointerSelector
         wallPanelScaler.ScaleX(_scale);
         wallPanelScaler.endingTip.transform.localPosition = new Vector3(_scale, 0, 0);
         wallPanelScaler.transform.SetParent(wallsContainer);
+
+        WallPanel wallPanel = newSection.GetComponent<WallPanel>();
+        wallPanel.SetParameters(_spawnPosition, _rotationAngle, _scale);
+
         Debug.Log("Spawned with input:\npos: " + _spawnPosition + "\nrot: " + _rotationAngle + "\nscale: " + _scale );
-        return new GameObject();
-    }
-
-    void SerializeWalls()
-    {
-        Debug.Log("Walls to serialize: " + wallsContainer.transform.childCount);
-    }
-
-    void SerializeWall()
-    {
-
+        return newSection;
     }
 }

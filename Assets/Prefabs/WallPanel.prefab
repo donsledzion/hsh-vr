@@ -512,6 +512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6527398903753661378}
   - component: {fileID: 8577693645249888861}
+  - component: {fileID: -8040386901614955162}
   m_Layer: 0
   m_Name: WallPanel
   m_TagString: Untagged
@@ -550,3 +551,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scalableObject: {fileID: 4914517964377370985}
   endingTip: {fileID: 2073287341}
+--- !u!114 &-8040386901614955162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9058089795497339253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c2f8b39f4449447ba9ba48c35faa0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
