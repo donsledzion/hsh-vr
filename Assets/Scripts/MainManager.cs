@@ -33,7 +33,8 @@ public class MainManager : MonoBehaviour
     //=====================================================================================================
     public void SerializeWalls(string slotName)
     {
-        string dataPath = Application.persistentDataPath + "/" + slotName + "_walls.json";
+        Directory.CreateDirectory(Application.persistentDataPath + "/" + slotName);
+        string dataPath = Application.persistentDataPath + "/" + slotName + "/walls.json";
         List<WallPanel.WallCreationData> wallCreationDatas = new List<WallPanel.WallCreationData>();
         Transform[] walls = wallsContainer.GetComponentsInChildren<Transform>();
         SaveWallsData data = new SaveWallsData();        
@@ -49,7 +50,7 @@ public class MainManager : MonoBehaviour
 
     void LoadWallsData(string slotName)
     {
-        string dataPath = Application.persistentDataPath + "/" + slotName + "_walls.json";
+        string dataPath = Application.persistentDataPath + "/" + slotName + "/walls.json";
 
         if (File.Exists(dataPath))
         {
