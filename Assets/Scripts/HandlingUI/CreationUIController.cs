@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.UI;
 using TMPro;
 
 public class CreationUIController : MonoBehaviour
@@ -37,7 +36,6 @@ public class CreationUIController : MonoBehaviour
         float.TryParse(inputSizeY.GetComponent<TMP_InputField>().text, out sizeY);
 
         gridController.GenerateGrid(sizeX, sizeY);
-
         bgImage.enabled = false;
         selectNewSize.SetActive(false);
     }

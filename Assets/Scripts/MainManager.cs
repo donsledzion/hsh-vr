@@ -77,4 +77,21 @@ public class MainManager : MonoBehaviour
     {
         SerializeWalls(slotName);
     }
+
+    public void ClearBoard()
+    {
+        //TODO: implement removing everything that exists on the board
+
+        foreach (Transform child in wallsContainer.transform)
+            GameObject.Destroy(child.gameObject);
+    }
+
+    public void QuitApplication()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
