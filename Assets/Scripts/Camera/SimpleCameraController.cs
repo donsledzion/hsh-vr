@@ -77,6 +77,10 @@ public class SimpleCameraController : MonoBehaviour
     [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
     public bool invertY = false;
 
+    [Tooltip("Intensity of zoom in/out using mouse scroll wheel.")]
+    [Range(0.2f, 10f)]
+    public float scrollSpeed = 1f;
+
 #if ENABLE_INPUT_SYSTEM
     InputAction movementAction;
     InputAction verticalMovementAction;
@@ -134,6 +138,14 @@ public class SimpleCameraController : MonoBehaviour
         direction.z = moveDelta.y;
         direction.y = verticalMovementAction.ReadValue<Vector2>().y;
 #else
+        if(Input.mouseScrollDelta.y>0)
+        {
+            direction += Vector3.forward * scrollSpeed;
+        }
+        if(Input.mouseScrollDelta.y<0)
+        {
+            direction += Vector3.back * scrollSpeed;
+        }
         if (Input.GetKey(KeyCode.W))
         {
             direction += Vector3.forward;
