@@ -987,6 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallBuilder: {fileID: 1814085669}
+  tilesGridController: {fileID: 626393943}
   wallsContainer: {fileID: 1027621419}
 --- !u!4 &612250001
 Transform:
