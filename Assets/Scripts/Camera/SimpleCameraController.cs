@@ -245,7 +245,6 @@ public class SimpleCameraController : MonoBehaviour
         if (adjustingInProgres)
         {
             float adjustmentProgres = (Time.time-adjustmentStartTime)*Time.deltaTime/adjustmentTime;
-            //translation += Vector3.back;
             translation = Vector3.Lerp(
                 startTranslation,
                 startTranslation+Vector3.back*Mathf.Max(gridController.GetGridSize().x,gridController.GetGridSize().y),
