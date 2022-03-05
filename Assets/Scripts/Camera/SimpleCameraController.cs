@@ -83,11 +83,13 @@ public class SimpleCameraController : MonoBehaviour
     [Range(0.2f, 10f)]
     public float scrollSpeed = 1f;
     [Space]
-    [Tooltip("To auto adjust camera view to grid size.")]
-    [SerializeField] bool autoAdjustOnStart = true;
-    [SerializeField] bool adjustingInProgres = true;
+    [SerializeField] bool adjustingInProgres = false;
     [SerializeField] TilesGridController gridController;
     [SerializeField] float distanceToOrigin;
+    bool readStartTranslation = true;
+    Vector3 startTranslation;
+    float adjustmentStartTime;
+    [SerializeField] float adjustmentTime = 5f;
 
 #if ENABLE_INPUT_SYSTEM
     InputAction movementAction;
@@ -223,6 +225,12 @@ public class SimpleCameraController : MonoBehaviour
         // Translation
         var translation = GetInputTranslationDirection() * Time.deltaTime;
 
+        if (readStartTranslation)
+        {
+            startTranslation = translation;
+            readStartTranslation = false;
+        }
+
         // Speed up movement when shift key held
         if (IsBoostPressed())
         {
@@ -236,7 +244,16 @@ public class SimpleCameraController : MonoBehaviour
 
         if (adjustingInProgres)
         {
-            translation += Vector3.back;
+            float adjustmentProgres = (Time.time-adjustmentStartTime)*Time.deltaTime/adjustmentTime;
+            //translation += Vector3.back;
+            translation = Vector3.Lerp(
+                startTranslation,
+                startTranslation+Vector3.back*Mathf.Max(gridController.GetGridSize().x,gridController.GetGridSize().y),
+                adjustmentProgres
+                );
+
+
+
             if (AdjustViewToGridSize(gridController.GetGridSize()) < 0.1f)
                 adjustingInProgres = false;
         }
@@ -253,12 +270,6 @@ public class SimpleCameraController : MonoBehaviour
 
         distanceToOrigin = (transform.position - Vector3.zero).magnitude;
 
-        if(adjustingInProgres)
-        {
-            translation += Vector3.back*Time.deltaTime;
-            if (AdjustViewToGridSize(gridController.GetGridSize()) < 0.1f)
-                adjustingInProgres = false;
-        }
     }
 
     float GetBoostFactor()
@@ -340,7 +351,7 @@ public class SimpleCameraController : MonoBehaviour
         return _gridSize - distanceToOrigin;
     }
 
-    public void Reajust()
+    public void Readjust()
     {
         StartCoroutine(DelayedAdjustment());
         
@@ -348,8 +359,9 @@ public class SimpleCameraController : MonoBehaviour
 
     IEnumerator DelayedAdjustment()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         adjustingInProgres = true;
+        adjustmentStartTime = Time.time;
     }
 
 }

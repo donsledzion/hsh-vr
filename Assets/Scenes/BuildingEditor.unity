@@ -294,6 +294,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1687258583}
+        m_TargetAssemblyTypeName: SimpleCameraController, Assembly-CSharp
+        m_MethodName: Readjust
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &159041429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1521,7 +1533,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1687258583}
         m_TargetAssemblyTypeName: SimpleCameraController, Assembly-CSharp
-        m_MethodName: Reajust
+        m_MethodName: Readjust
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3251,6 +3263,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1687258583}
+        m_TargetAssemblyTypeName: SimpleCameraController, Assembly-CSharp
+        m_MethodName: Readjust
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1516717249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3426,8 +3450,7 @@ MonoBehaviour:
   rotationLerpTime: 0.01
   invertY: 1
   scrollSpeed: 1
-  autoAdjustOnStart: 1
-  adjustingInProgres: 1
+  adjustingInProgres: 0
   gridController: {fileID: 626393943}
   distanceToOrigin: 0
 --- !u!20 &1687258584
@@ -3481,7 +3504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.21131593, y: 0.7848838, z: -0.36599422, w: 0.45315704}
-  m_LocalPosition: {x: -2.95, y: 0.11, z: 1.03}
+  m_LocalPosition: {x: -3.87, y: 1.37, z: 1.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
