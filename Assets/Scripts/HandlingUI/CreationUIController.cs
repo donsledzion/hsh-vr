@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 public class CreationUIController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class CreationUIController : MonoBehaviour
     [Space]
     [SerializeField] GameObject newOrLoadButtons;
     [SerializeField] MainManager mainManager;
+    [Space]
+    [SerializeField] UnityEvent onSessionLoad;
 
     void Start()
     {
@@ -43,10 +46,9 @@ public class CreationUIController : MonoBehaviour
         selectNewSize.SetActive(false);
     }
 
-    public void LoadGame()
+    public void LoadSession()
     {
-        bgImage.enabled = false;
-        newOrLoadButtons.SetActive(false);
+        onSessionLoad?.Invoke();
     }
 
 }

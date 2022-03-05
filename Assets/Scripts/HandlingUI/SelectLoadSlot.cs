@@ -3,48 +3,70 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SelectLoadSlot : MonoBehaviour
 {
     [SerializeField] GameObject loadButtonPrefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public string[] FindSavedSessions()
-    {
-        string[] slots = Directory.GetDirectories(Application.persistentDataPath, "*",SearchOption.TopDirectoryOnly);
-        foreach(string slot in slots)
-        {   
-            Debug.Log("Slot: " + Path.GetFileName(slot));            
-        }
-        return slots;
-    }
+    [SerializeField] GameObject goBackButtonPrefab;
+    [SerializeField] MainManager mainManager;
+    [SerializeField] CreationUIController uiController;
+    [SerializeField] int maxSlotsCount = 5;
+    [SerializeField] float buttonsOffset = 5;
+    [Space]
+    [SerializeField] UnityEvent onBackButton;
 
     public void DrawButtons()
     {
-        //string[] slots = FindSavedSessions();
+        ClearButtons();
         string[] slots = Directory.GetDirectories(Application.persistentDataPath, "*",SearchOption.TopDirectoryOnly);
-        int counter = 0;
-        foreach(string slot in slots)
+        float loadButtonHeight = loadButtonPrefab.GetComponent<RectTransform>().rect.height;
+        for (int i = 0; i < maxSlotsCount; i++)
         {
-            string slotName = Path.GetFileName(slot);
-            /*int buttonHeight = loadButtonPrefab.gameObject.transform.;*/
-            GameObject loadButton = Instantiate(loadButtonPrefab, transform.position+new Vector3(0,-counter*60,0), transform.rotation);
-            counter++;
-            loadButton.transform.SetParent(transform);
-            LoadButton loadButtonController = loadButton.GetComponent<LoadButton>();
-            loadButtonController.UpdateButton(slotName,new Vector2(10,10), "jakas data");
-            //loadButton.GetComponent<Button>().onClick
+            if(i < slots.Length)
+            {
+                string slotName = Path.GetFileName(slots[i]);
+                
+                GameObject loadButton = Instantiate(
+                    loadButtonPrefab,
+                    transform.position + new Vector3(0, -i * (loadButtonHeight+buttonsOffset), 0),
+                    transform.rotation);
 
+                loadButton.transform.SetParent(transform);
+                LoadButton loadButtonController = loadButton.GetComponent<LoadButton>();
+                loadButtonController.UpdateButton(slotName, new Vector2(10, 10), "jakas data"); // read grid size and sessio date!!! TODO!!!
+                loadButton.GetComponent<Button>().onClick.AddListener(() => mainManager.LoadSavedData(slotName));
+                loadButton.GetComponent<Button>().onClick.AddListener(() => uiController.LoadSession());
+            }
+            else
+            {
+                string slotName = "< PUSTY >";
+                GameObject loadButton = Instantiate(
+                    loadButtonPrefab,
+                    transform.position + new Vector3(0, -i * (loadButtonHeight + buttonsOffset), 0),
+                    transform.rotation);
+
+                loadButton.transform.SetParent(transform);
+                LoadButton loadButtonController = loadButton.GetComponent<LoadButton>();
+                loadButtonController.UpdateButton(slotName, new Vector2(0, 0), "n/d");
+            }
+        }
+
+        GameObject goBackButton = Instantiate(
+                goBackButtonPrefab,
+                transform.position + new Vector3(0, -maxSlotsCount * (loadButtonHeight + buttonsOffset), 0),
+                transform.rotation);
+        goBackButton.transform.SetParent(transform);
+        goBackButton.GetComponent<Button>().onClick.AddListener(() => onBackButton.Invoke());
+    }
+
+    void ClearButtons()
+    {
+        Transform[] children = gameObject.transform.GetComponentsInChildren<Transform>();
+        foreach(Transform child in children)
+        {
+            if(child.gameObject!=transform.gameObject)
+                Destroy(child.gameObject);
         }
     }
 }
