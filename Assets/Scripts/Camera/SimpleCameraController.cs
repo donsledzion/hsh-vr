@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 #endif
 
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class SimpleCameraController : MonoBehaviour
 {
@@ -80,6 +82,14 @@ public class SimpleCameraController : MonoBehaviour
     [Tooltip("Intensity of zoom in/out using mouse scroll wheel.")]
     [Range(0.2f, 10f)]
     public float scrollSpeed = 1f;
+    [Space]
+    [SerializeField] bool adjustingInProgres = false;
+    [SerializeField] TilesGridController gridController;
+    [SerializeField] float distanceToOrigin;
+    bool readStartTranslation = true;
+    Vector3 startTranslation;
+    float adjustmentStartTime;
+    [SerializeField] float adjustmentTime = 5f;
 
 #if ENABLE_INPUT_SYSTEM
     InputAction movementAction;
@@ -215,6 +225,12 @@ public class SimpleCameraController : MonoBehaviour
         // Translation
         var translation = GetInputTranslationDirection() * Time.deltaTime;
 
+        if (readStartTranslation)
+        {
+            startTranslation = translation;
+            readStartTranslation = false;
+        }
+
         // Speed up movement when shift key held
         if (IsBoostPressed())
         {
@@ -225,6 +241,23 @@ public class SimpleCameraController : MonoBehaviour
         boost += GetBoostFactor();
         translation *= Mathf.Pow(2.0f, boost);
 
+
+        if (adjustingInProgres)
+        {
+            float adjustmentProgres = (Time.time-adjustmentStartTime)*Time.deltaTime/adjustmentTime;
+            //translation += Vector3.back;
+            translation = Vector3.Lerp(
+                startTranslation,
+                startTranslation+Vector3.back*Mathf.Max(gridController.GetGridSize().x,gridController.GetGridSize().y),
+                adjustmentProgres
+                );
+
+
+
+            if (AdjustViewToGridSize(gridController.GetGridSize()) < 0.1f)
+                adjustingInProgres = false;
+        }
+
         m_TargetCameraState.Translate(translation);
 
         // Framerate-independent interpolation
@@ -234,6 +267,9 @@ public class SimpleCameraController : MonoBehaviour
         m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
 
         m_InterpolatingCameraState.UpdateTransform(transform);
+
+        distanceToOrigin = (transform.position - Vector3.zero).magnitude;
+
     }
 
     float GetBoostFactor()
@@ -306,6 +342,26 @@ public class SimpleCameraController : MonoBehaviour
 #else
         return Input.GetMouseButtonUp(1);
 #endif
+    }
+
+    float AdjustViewToGridSize(Vector2 gridSize)
+    {
+        int _gridSize = (int)Mathf.Max(gridController.GetGridSize().x,gridController.GetGridSize().y);
+
+        return _gridSize - distanceToOrigin;
+    }
+
+    public void Readjust()
+    {
+        StartCoroutine(DelayedAdjustment());
+        
+    }
+
+    IEnumerator DelayedAdjustment()
+    {
+        yield return new WaitForSeconds(1f);
+        adjustingInProgres = true;
+        adjustmentStartTime = Time.time;
     }
 
 }
