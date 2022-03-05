@@ -27,6 +27,11 @@ public class TilesGridController : MonoBehaviour
         }
     }
 
+    public Vector2 GetGridSize()
+    {
+        return new Vector2(gridWidth, gridHeight);
+    }
+
     public void GenerateGrid(float width, float height)
     {
         gridWidth = width;

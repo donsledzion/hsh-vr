@@ -30,10 +30,13 @@ public class CreationUIController : MonoBehaviour
 
     public void StartNewCreation()
     {
-        float sizeX, sizeY;
+        float sizeX=0f, sizeY=0f;
 
         float.TryParse(inputSizeX.GetComponent<TMP_InputField>().text, out sizeX);
         float.TryParse(inputSizeY.GetComponent<TMP_InputField>().text, out sizeY);
+
+        if (sizeX == 0f) sizeX = 10f;
+        if (sizeY == 0f) sizeY = 10f;
 
         gridController.GenerateGrid(sizeX, sizeY);
         bgImage.enabled = false;

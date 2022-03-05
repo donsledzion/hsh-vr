@@ -8,6 +8,7 @@ public class MainManager : MonoBehaviour
     public static MainManager Instance;
 
     [SerializeField] WallBuilder wallBuilder;
+    [SerializeField] TilesGridController tilesGridController;
     
 
     public GameObject wallsContainer;
@@ -30,10 +31,43 @@ public class MainManager : MonoBehaviour
     {
         public List<WallPanel.WallCreationData> wallsData = new List<WallPanel.WallCreationData>();
     }
+
+
+    [System.Serializable]
+    class SaveGridData
+    {
+        public Vector2 gridSize = new Vector2();
+    }
     //=====================================================================================================
+
+    public void SerializeGridData(string slotName)
+    {
+        Directory.CreateDirectory(Application.persistentDataPath + "/" + slotName);
+        string dataPath = Application.persistentDataPath + "/" + slotName + "/grid.json";
+
+        SaveGridData data = new SaveGridData();
+        data.gridSize = tilesGridController.GetGridSize();
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(dataPath, json);
+    }
+
+    public void LoadGridData(string slotName)
+    {
+        string dataPath = Application.persistentDataPath + "/" + slotName + "/grid.json";
+        if (File.Exists(dataPath))
+        {
+            string plainData = File.ReadAllText(dataPath);
+
+            SaveGridData data = JsonUtility.FromJson<SaveGridData>(plainData);
+
+            tilesGridController.GenerateGrid(data.gridSize.x, data.gridSize.y);
+        }
+    }
     public void SerializeWalls(string slotName)
     {
-        string dataPath = Application.persistentDataPath + "/" + slotName + "_walls.json";
+        Directory.CreateDirectory(Application.persistentDataPath + "/" + slotName);
+        string dataPath = Application.persistentDataPath + "/" + slotName + "/walls.json";
         List<WallPanel.WallCreationData> wallCreationDatas = new List<WallPanel.WallCreationData>();
         Transform[] walls = wallsContainer.GetComponentsInChildren<Transform>();
         SaveWallsData data = new SaveWallsData();        
@@ -49,7 +83,7 @@ public class MainManager : MonoBehaviour
 
     void LoadWallsData(string slotName)
     {
-        string dataPath = Application.persistentDataPath + "/" + slotName + "_walls.json";
+        string dataPath = Application.persistentDataPath + "/" + slotName + "/walls.json";
 
         if (File.Exists(dataPath))
         {
@@ -70,11 +104,13 @@ public class MainManager : MonoBehaviour
 
     public void LoadSavedData(string slotName="default")
     {
+        LoadGridData(slotName);
         LoadWallsData(slotName);
     }
 
     public void SaveData(string slotName="default")
     {
+        SerializeGridData(slotName);
         SerializeWalls(slotName);
     }
 
