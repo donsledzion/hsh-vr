@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 #endif
 
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class SimpleCameraController : MonoBehaviour
 {
@@ -80,6 +82,12 @@ public class SimpleCameraController : MonoBehaviour
     [Tooltip("Intensity of zoom in/out using mouse scroll wheel.")]
     [Range(0.2f, 10f)]
     public float scrollSpeed = 1f;
+    [Space]
+    [Tooltip("To auto adjust camera view to grid size.")]
+    [SerializeField] bool autoAdjustOnStart = true;
+    [SerializeField] bool adjustingInProgres = true;
+    [SerializeField] TilesGridController gridController;
+    [SerializeField] float distanceToOrigin;
 
 #if ENABLE_INPUT_SYSTEM
     InputAction movementAction;
@@ -225,6 +233,14 @@ public class SimpleCameraController : MonoBehaviour
         boost += GetBoostFactor();
         translation *= Mathf.Pow(2.0f, boost);
 
+
+        if (adjustingInProgres)
+        {
+            translation += Vector3.back;
+            if (AdjustViewToGridSize(gridController.GetGridSize()) < 0.1f)
+                adjustingInProgres = false;
+        }
+
         m_TargetCameraState.Translate(translation);
 
         // Framerate-independent interpolation
@@ -234,6 +250,15 @@ public class SimpleCameraController : MonoBehaviour
         m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
 
         m_InterpolatingCameraState.UpdateTransform(transform);
+
+        distanceToOrigin = (transform.position - Vector3.zero).magnitude;
+
+        if(adjustingInProgres)
+        {
+            translation += Vector3.back*Time.deltaTime;
+            if (AdjustViewToGridSize(gridController.GetGridSize()) < 0.1f)
+                adjustingInProgres = false;
+        }
     }
 
     float GetBoostFactor()
@@ -306,6 +331,25 @@ public class SimpleCameraController : MonoBehaviour
 #else
         return Input.GetMouseButtonUp(1);
 #endif
+    }
+
+    float AdjustViewToGridSize(Vector2 gridSize)
+    {
+        int _gridSize = (int)Mathf.Max(gridController.GetGridSize().x,gridController.GetGridSize().y);
+
+        return _gridSize - distanceToOrigin;
+    }
+
+    public void Reajust()
+    {
+        StartCoroutine(DelayedAdjustment());
+        
+    }
+
+    IEnumerator DelayedAdjustment()
+    {
+        yield return new WaitForSeconds(2f);
+        adjustingInProgres = true;
     }
 
 }
