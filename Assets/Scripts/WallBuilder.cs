@@ -56,11 +56,24 @@ public class WallBuilder : PointerSelector
                         }
                         else if(Mathf.Abs(rotationAngle) % 45 < 0.01f)
                         {
-                            float stretch = Mathf.Max(Mathf.Abs(
-                                    _selection.position.x-lastSelection.position.x),
+                            Vector2 targetVector = new Vector2(_selection.position.x - lastSelection.position.x,
                                     _selection.position.z - lastSelection.position.z);
+                            Vector2 targetVersor = targetVector.normalized;
+                            Debug.Log("targetVersor: [" + targetVersor.x + "," + targetVersor.y + "]");
+                            float stretch = Mathf.Max(Mathf.Abs(targetVector.x),Mathf.Abs(targetVector.y));
                             int sectionsCount = (int)(stretch/(2 * tilesGridController.tileSize));
                             Debug.Log("Rotation angle: " + rotationAngle + ", Sections: " + sectionsCount);
+                            scale /= sectionsCount;
+                            for(int i = 0; i < sectionsCount; i++)
+                            {
+                                spawnPoint = new Vector3(
+                                    lastSelection.transform.position.x + i * targetVersor.x*tilesGridController.tileSize *2,
+                                    lastSelection.transform.position.y,
+                                    lastSelection.transform.position.z + i * targetVersor.y * tilesGridController.tileSize*2
+                                    );
+
+                                BuildSection(spawnPoint, rotationAngle, scale);
+                            }
                         }
 
                         pileInstance.transform.position = _selection.position;
