@@ -122,6 +122,18 @@ public class MainManager : MonoBehaviour
             GameObject.Destroy(child.gameObject);
     }
 
+    public bool SlotExists(string slotName)
+    {
+        string[] slots = Directory.GetDirectories(Application.persistentDataPath, "*", SearchOption.TopDirectoryOnly);
+
+        foreach(string slot in slots)
+        {
+            if (slot == slotName)
+                return true;
+        }
+        return false;
+    }
+
     public void QuitApplication()
     {
 #if UNITY_EDITOR
