@@ -67,9 +67,9 @@ public class WallBuilder : PointerSelector
                             for(int i = 0; i < sectionsCount; i++)
                             {
                                 spawnPoint = new Vector3(
-                                    lastSelection.transform.position.x + i * targetVersor.x*tilesGridController.tileSize *2,
+                                    lastSelection.transform.position.x + i * Mathf.Round(targetVersor.x) * tilesGridController.tileSize * 2,
                                     lastSelection.transform.position.y,
-                                    lastSelection.transform.position.z + i * targetVersor.y * tilesGridController.tileSize*2
+                                    lastSelection.transform.position.z + i * Mathf.Round(targetVersor.y) * tilesGridController.tileSize * 2
                                     );
 
                                 BuildSection(spawnPoint, rotationAngle, scale);
