@@ -14,8 +14,11 @@ public class GraphWallBuilder : PointerSelector
     Color originalColor;
     [SerializeField] public List<GraphGridPoint> selectionPair = new List<GraphGridPoint>();
 
-
     GraphGridPoint source, destination;
+    List<GraphGridPoint> prototypeWallPath = new List<GraphGridPoint>();
+    [SerializeField] GraphGridPoint[] prototypeWallPathArray;
+    [SerializeField] Transform prototypeWallsContainer;
+    [SerializeField] Transform wallsContainer;
 
     Transform _lastSelection;
 
@@ -35,28 +38,23 @@ public class GraphWallBuilder : PointerSelector
                 pileInstance = Instantiate(wallStartPilePrefab, _selection.position, wallStartPilePrefab.transform.rotation);
             else
                 pileInstance.transform.position = _selection.position;
-        }
 
-        if(_selection != null)
-        {
-            if(source != null)
+            if (source != null)
             {
                 destination = _selection.gameObject.GetComponent<GraphGridPoint>();
                 if (_selection != _lastSelection)
                 {
                     pathFinder.RestoreDefaultGridColor();
-                    pathFinder.PathBFS(source, destination);
+                    prototypeWallPath = pathFinder.PathBFS(source, destination);
+                    DrawWallPrototype();
                 }
-
             }
         }
-
 
         if (Input.GetMouseButtonDown(0))
         {
            if(_selection != null)
-            {
-                
+            {                
                 source = _selection.gameObject.GetComponent<GraphGridPoint>();
                 if(selectionPair.Count < 2)
                 {
@@ -71,9 +69,51 @@ public class GraphWallBuilder : PointerSelector
         {
             source = null;
             destination = null;
+
+            if (prototypeWallsContainer.childCount > 0)
+                MoveChildren(prototypeWallsContainer, wallsContainer);
         }
 
         _lastSelection = _selection;
+
+    }
+
+    public void DrawWallPrototype()
+    {
+        ClearContainer(prototypeWallsContainer.gameObject);
+        prototypeWallPathArray = new GraphGridPoint[prototypeWallPath.Count];
+        prototypeWallPathArray = prototypeWallPath.ToArray();
+        for(int i = 0; i < prototypeWallPathArray.Length-1; i++)
+        {
+            Vector3 progresVector = (prototypeWallPathArray[i + 1].transform.position - prototypeWallPathArray[i].transform.position);
+            float scale = progresVector.magnitude;
+            Vector3 spawnPoint = prototypeWallPathArray[i].transform.position;
+            float rotation = Vector3.SignedAngle(Vector3.right, progresVector, Vector3.up); 
+            GameObject newSection = Instantiate(graphWallPrefab, spawnPoint, Quaternion.identity);
+            newSection.transform.localEulerAngles = newSection.transform.localEulerAngles =
+            new Vector3(newSection.transform.eulerAngles.x, rotation, newSection.transform.eulerAngles.z);
+            WallPanelScaler wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
+            wallPanelScaler.ScaleX(scale);
+            newSection.transform.SetParent(prototypeWallsContainer);
+        }
+    }
+
+    public void ClearContainer(GameObject container)
+    {
+        foreach(Transform transform in container.GetComponentsInChildren<Transform>())
+        {
+            if (transform != container.transform)
+                Destroy(transform.gameObject);
+        }
+    }
+
+    public void MoveChildren(Transform source, Transform destination)
+    {
+        foreach (Transform transform in source.gameObject.GetComponentsInChildren<Transform>())
+        {
+            if (transform != source.transform)
+                transform.SetParent(destination);
+        }
     }
 
     public void ClearSelectionPair()

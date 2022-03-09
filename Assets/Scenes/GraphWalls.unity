@@ -1114,6 +1114,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410419135}
   m_CullTransparentMesh: 1
+--- !u!1 &430719812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430719813}
+  m_Layer: 0
+  m_Name: WallsPrototypeContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430719813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430719812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &612249999
 GameObject:
   m_ObjectHideFlags: 0
@@ -2876,6 +2906,9 @@ MonoBehaviour:
   wallStartPilePrefab: {fileID: 6061030146324017075, guid: 8a92143d89172a5439b764ac9fb76cac, type: 3}
   pathFinder: {fileID: 1326186101}
   selectionPair: []
+  prototypeWallPathArray: []
+  prototypeWallsContainer: {fileID: 430719813}
+  WallsContainer: {fileID: 1027621420}
 --- !u!4 &1123405911
 Transform:
   m_ObjectHideFlags: 0
@@ -3655,8 +3688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd40039c9d471749ae060ec62f68ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeX: 15
-  sizeY: 15
+  sizeX: 20
+  sizeY: 20
   tileSize: 0.4
   elevation: 0
   gridPoint: {fileID: 9075640077597413218, guid: c33481fc44d097649a1f73328cd7144e, type: 3}

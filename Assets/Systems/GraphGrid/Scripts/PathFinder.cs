@@ -36,13 +36,15 @@ public class PathFinder : MonoBehaviour
             point.GetComponent<Renderer>().material.color = gridController.defaultPointColor;
     }
 
-    public void PathFind()
+    public List<GraphGridPoint> PathFind()
     {
-        PathBFS(wallBuilder.selectionPair.ToArray()[0], wallBuilder.selectionPair.ToArray()[1]);
+        return PathBFS(wallBuilder.selectionPair.ToArray()[0], wallBuilder.selectionPair.ToArray()[1]);
     }
 
-    public void PathBFS(GraphGridPoint startPoint, GraphGridPoint endPoint)
+    public List<GraphGridPoint> PathBFS(GraphGridPoint startPoint, GraphGridPoint endPoint)
     {
+        List<GraphGridPoint> pathTrace = new List<GraphGridPoint>();
+
         Queue<GraphGridPoint> Q = new Queue<GraphGridPoint>();        
         GraphGridPoint testedPointV;                       
         bool found = false;
@@ -86,7 +88,7 @@ public class PathFinder : MonoBehaviour
         if (!found) Debug.LogWarning("No path found");
         else
         {
-            Debug.LogWarning("PATH FOUND");
+            Debug.Log("PATH FOUND");
             testedPointV = endPoint;
             int safetyCounter = 0;
             int v = testedPointV.number;
@@ -97,12 +99,14 @@ public class PathFinder : MonoBehaviour
                     if (point.number == v)
                     {
                         point.GetComponent<Renderer>().material.color = Color.blue;
+                        pathTrace.Add(point);
                         break;
                     }
                 }
                 v = path[v];                
             }
         }
+        return pathTrace;
 
     }
 
