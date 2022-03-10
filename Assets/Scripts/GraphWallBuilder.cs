@@ -109,10 +109,10 @@ public class GraphWallBuilder : PointerSelector
 
     public void MoveChildren(Transform source, Transform destination)
     {
-        foreach (Transform transform in source.gameObject.GetComponentsInChildren<Transform>())
+        foreach (Transform moved in source.gameObject.GetComponentsInChildren<Transform>())
         {
-            if (transform != source.transform)
-                transform.SetParent(destination);
+            if (moved.transform.parent == source.transform)
+                moved.SetParent(destination);
         }
     }
 
