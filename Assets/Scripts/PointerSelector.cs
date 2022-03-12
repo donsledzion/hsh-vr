@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PointerSelector : MonoBehaviour
 {
-    [SerializeField] float scaleFactor = 10f;
-
-    private Vector3 originalScale;
     protected Transform _selection;
     [SerializeField] LayerMask layerMask;
 
@@ -25,3 +22,5 @@ public class PointerSelector : MonoBehaviour
         }
     }
 }
+
+
