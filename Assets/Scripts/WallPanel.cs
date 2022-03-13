@@ -9,7 +9,7 @@ public class WallPanel : MonoBehaviour
     [Serializable]
     public struct WallCreationData
     {
-        public /*Serializable*/Vector3 spawnPosition;
+        public Vector3 spawnPosition;
         public float rotationAngle;
         public float scale;
     }

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class GraphGridPoint : MonoBehaviour
 {
@@ -117,11 +119,7 @@ public class GraphGridPoint : MonoBehaviour
         public GraphGridPoint SE;
         public GraphGridPoint SW;
     }
-    public bool MatchWallConnection(GraphGridPoint other)
-    {
-        return true;
-    }
-
+    
     public void DrawLine(Vector3 from, Vector3 to)
     {
         lineRenderer.positionCount = 2;
@@ -143,8 +141,85 @@ public class GraphGridPoint : MonoBehaviour
         lineRenderer.SetPosition(4, edge1);
     }
 
+    public bool MarkNeighbour(GraphGridPoint other)
+    {
+        if(gridNeighbours.N == other && wallsConnections.N == null)
+        {
+            wallsConnections.N = other;
+            other.wallsConnections.S = this;
+            return true;
+        }
+        if (gridNeighbours.S == other && wallsConnections.S == null)
+        {
+            wallsConnections.S = other;
+            other.wallsConnections.N = this;
+            return true;
+        }
+        if (gridNeighbours.E == other && wallsConnections.E == null)
+        {
+            wallsConnections.E = other;
+            other.wallsConnections.W = this;
+            return true;
+        }
+        if (gridNeighbours.W == other && wallsConnections.W == null)
+        {
+            wallsConnections.W = other;
+            other.wallsConnections.E = this;
+            return true;
+        }
+        if(gridNeighbours.NE == other && wallsConnections.NE == null)
+        {
+            wallsConnections.NE = other;
+            other.wallsConnections.SW = this;
+            return true;
+        }
+        if (gridNeighbours.SE == other && wallsConnections.SE == null)
+        {
+            wallsConnections.SE = other;
+            other.wallsConnections.NW = this;
+            return true;
+        }
+        if (gridNeighbours.NW == other && wallsConnections.NW == null)
+        {
+            wallsConnections.NW = other;
+            other.wallsConnections.SE = this;
+            return true;
+        }
+        if (gridNeighbours.SW == other && wallsConnections.SW == null)
+        {
+            wallsConnections.SW = other;
+            other.wallsConnections.NE = this;
+            return true;
+        }
+        return false;
+    }
+
+    public bool HasWallTowards(GraphGridPoint other)
+    {
+        if(wallsConnections.N == other)            
+            return true;
+        if(wallsConnections.S == other)            
+            return true;
+        if(wallsConnections.E == other)            
+            return true;
+        if(wallsConnections.W == other)            
+            return true;
+        if(wallsConnections.NE == other)            
+            return true;
+        if(wallsConnections.NW == other)            
+            return true;
+        if(wallsConnections.SE == other)            
+            return true;
+        if(wallsConnections.SW == other)            
+            return true;
+
+        return false;
+    }
+
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         Handles.Label(transform.position+Vector3.up*.3f,"(" + position.x + "," + position.y + ")");
+#endif
     }
 }
