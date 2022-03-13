@@ -88,13 +88,17 @@ public class GraphWallBuilder : PointerSelector
             Vector3 progresVector = (prototypeWallPathArray[i + 1].transform.position - prototypeWallPathArray[i].transform.position);
             float scale = progresVector.magnitude;
             Vector3 spawnPoint = prototypeWallPathArray[i].transform.position;
-            float rotation = Vector3.SignedAngle(Vector3.right, progresVector, Vector3.up); 
-            GameObject newSection = Instantiate(graphWallPrefab, spawnPoint, Quaternion.identity);
-            newSection.transform.localEulerAngles = newSection.transform.localEulerAngles =
-            new Vector3(newSection.transform.eulerAngles.x, rotation, newSection.transform.eulerAngles.z);
-            WallPanelScaler wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
-            wallPanelScaler.ScaleX(scale);
-            newSection.transform.SetParent(prototypeWallsContainer);
+            float rotation = Vector3.SignedAngle(Vector3.right, progresVector, Vector3.up);
+
+            if (prototypeWallPathArray[i].MatchWallConnection(prototypeWallPathArray[i + 1]))
+            { 
+                GameObject newSection = Instantiate(graphWallPrefab, spawnPoint, Quaternion.identity);            
+                newSection.transform.localEulerAngles = newSection.transform.localEulerAngles =
+                new Vector3(newSection.transform.eulerAngles.x, rotation, newSection.transform.eulerAngles.z);
+                WallPanelScaler wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
+                wallPanelScaler.ScaleX(scale);
+                newSection.transform.SetParent(prototypeWallsContainer);
+            }
         }
     }
 

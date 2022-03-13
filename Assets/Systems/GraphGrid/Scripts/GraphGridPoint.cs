@@ -117,6 +117,10 @@ public class GraphGridPoint : MonoBehaviour
         public GraphGridPoint SE;
         public GraphGridPoint SW;
     }
+    public bool MatchWallConnection(GraphGridPoint other)
+    {
+        return true;
+    }
 
     public void DrawLine(Vector3 from, Vector3 to)
     {
