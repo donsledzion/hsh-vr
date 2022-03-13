@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.2850269, g: 0.3713935, b: 0.49601045, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502592, g: 0.37139234, b: 0.49601153, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3287,8 +3287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd40039c9d471749ae060ec62f68ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeX: 20
-  sizeY: 20
+  sizeX: 30
+  sizeY: 30
   tileSize: 0.4
   elevation: 0
   gridPoint: {fileID: 9075640077597413218, guid: c33481fc44d097649a1f73328cd7144e, type: 3}
@@ -3863,7 +3863,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0

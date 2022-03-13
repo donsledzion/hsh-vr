@@ -5,9 +5,10 @@ using UnityEditor;
 
 public class GraphGridPoint : MonoBehaviour
 {
-    public WallNeighbours wallNeighbours = new WallNeighbours();        
+    public GridConnectors gridNeighbours = new GridConnectors();        
+    public GridConnectors wallsConnections = new GridConnectors();        
     public Vector2 position;
-
+    [SerializeField] LineRenderer lineRenderer;
     // ==============================================
     // BFS pathfinder purpose fields
     public bool visited;
@@ -29,49 +30,49 @@ public class GraphGridPoint : MonoBehaviour
             {
                 if (point.position.y == position.y - 1)
                 {
-                    point.wallNeighbours.SE = this;
-                    wallNeighbours.NW = point;
+                    point.gridNeighbours.SE = this;
+                    gridNeighbours.NW = point;
                 }
                 else if (point.position.y == position.y)
                 {
-                    point.wallNeighbours.E = this;
-                    wallNeighbours.W = point;
+                    point.gridNeighbours.E = this;
+                    gridNeighbours.W = point;
                 }
                 else if (point.position.y == position.y + 1)
                 {
-                    point.wallNeighbours.NE = this;
-                    wallNeighbours.SW = point;
+                    point.gridNeighbours.NE = this;
+                    gridNeighbours.SW = point;
                 }
             }
             else if (point.position.x == position.x) // norht and south neighbours
             {
                 if(point.position.y == position.y - 1)
                 {
-                    point.wallNeighbours.S = this;
-                    wallNeighbours.N = point;
+                    point.gridNeighbours.S = this;
+                    gridNeighbours.N = point;
                 }
                 else if(point.position.y == position.y + 1)
                 {
-                    point.wallNeighbours.N = this;
-                    wallNeighbours.S = point;
+                    point.gridNeighbours.N = this;
+                    gridNeighbours.S = point;
                 }
             }
             else if (point.position.x == position.x) // all "east" neighbours
             {
                 if (point.position.y == position.y - 1)
                 {
-                    point.wallNeighbours.SW = this;
-                    wallNeighbours.NE = point;
+                    point.gridNeighbours.SW = this;
+                    gridNeighbours.NE = point;
                 }
                 else if (point.position.y == position.y)
                 {
-                    point.wallNeighbours.W = this;
-                    wallNeighbours.E = point;
+                    point.gridNeighbours.W = this;
+                    gridNeighbours.E = point;
                 }
                 else if (point.position.y == position.y + 1)
                 {
-                    point.wallNeighbours.NW = this;
-                    wallNeighbours.SE = point;
+                    point.gridNeighbours.NW = this;
+                    gridNeighbours.SE = point;
                 }
             }
         }                
@@ -91,21 +92,21 @@ public class GraphGridPoint : MonoBehaviour
     {
         List<GraphGridPoint> neighbours = new List<GraphGridPoint>();
 
-        if (wallNeighbours.N != null) neighbours.Add(wallNeighbours.N);
-        if (wallNeighbours.S != null) neighbours.Add(wallNeighbours.S);
-        if (wallNeighbours.E != null) neighbours.Add(wallNeighbours.E);
-        if (wallNeighbours.W != null) neighbours.Add(wallNeighbours.W);
+        if (gridNeighbours.N != null) neighbours.Add(gridNeighbours.N);
+        if (gridNeighbours.S != null) neighbours.Add(gridNeighbours.S);
+        if (gridNeighbours.E != null) neighbours.Add(gridNeighbours.E);
+        if (gridNeighbours.W != null) neighbours.Add(gridNeighbours.W);
 
-        if (wallNeighbours.NE != null) neighbours.Add(wallNeighbours.NE);
-        if (wallNeighbours.NW != null) neighbours.Add(wallNeighbours.NW);
-        if (wallNeighbours.SE != null) neighbours.Add(wallNeighbours.SE);
-        if (wallNeighbours.SW != null) neighbours.Add(wallNeighbours.SW);
+        if (gridNeighbours.NE != null) neighbours.Add(gridNeighbours.NE);
+        if (gridNeighbours.NW != null) neighbours.Add(gridNeighbours.NW);
+        if (gridNeighbours.SE != null) neighbours.Add(gridNeighbours.SE);
+        if (gridNeighbours.SW != null) neighbours.Add(gridNeighbours.SW);
 
         return neighbours;
     }
 
     [System.Serializable]
-    public struct WallNeighbours
+    public struct GridConnectors
     {
         public GraphGridPoint N;
         public GraphGridPoint S;
@@ -115,6 +116,27 @@ public class GraphGridPoint : MonoBehaviour
         public GraphGridPoint NW;
         public GraphGridPoint SE;
         public GraphGridPoint SW;
+    }
+
+    public void DrawLine(Vector3 from, Vector3 to)
+    {
+        lineRenderer.positionCount = 2;
+        lineRenderer.widthMultiplier = 0.05f;
+        lineRenderer.SetPosition(0, from);
+        lineRenderer.SetPosition(1, to);
+    }
+
+    public void DrawRect(Vector3 edge1, Vector3 edge3)
+    {
+        Vector3 edge2 = new Vector3(edge1.x,edge1.y,edge3.z);
+        Vector3 edge4 = new Vector3(edge3.x,edge1.y,edge1.z);
+        lineRenderer.positionCount = 5;
+        lineRenderer.widthMultiplier = 0.05f;
+        lineRenderer.SetPosition(0, edge1);
+        lineRenderer.SetPosition(1, edge2);
+        lineRenderer.SetPosition(2, edge3);
+        lineRenderer.SetPosition(3, edge4);
+        lineRenderer.SetPosition(4, edge1);
     }
 
     private void OnDrawGizmos()

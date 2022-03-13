@@ -23,6 +23,7 @@ public class GraphGridController : MonoBehaviour
         GenerateGrid(sizeX, sizeY);
         ConnectWallsPoints();
         defaultPointColor = gridPoint.GetComponent<Renderer>().sharedMaterial.color;
+        DrawGrid();
     }
     public void GenerateGrid(int _sizeX, int _sizeY)
     {
@@ -43,6 +44,34 @@ public class GraphGridController : MonoBehaviour
         foreach (GraphGridPoint point in gridPoints)
         {
             point.ConnectNeighbours(gridPoints);
+        }
+    }
+
+    public void DrawGrid()
+    {
+        foreach(GraphGridPoint point in gridPoints)
+        {
+            float elevation = 0.1f;
+
+            if (point.transform.position.x == 0f && point.transform.position.z == 0f)
+            {
+                point.DrawRect(
+                    new Vector3(point.transform.position.x, elevation, point.transform.position.z),
+                    new Vector3((sizeX - 1) * tileSize * 2, elevation, (sizeX - 1) * tileSize * 2));
+            }
+            else if (point.transform.position.x == 0f)
+            {
+                Vector3 from = new Vector3(point.transform.position.x, elevation, point.transform.position.z);
+                Vector3 to = new Vector3((sizeX-1)*tileSize*2, elevation, point.transform.position.z);
+                point.DrawLine(from, to);
+            }
+            else if(point.transform.position.z == 0f)
+            {
+                Vector3 from = new Vector3(point.transform.position.x, elevation, point.transform.position.z);
+                Vector3 to = new Vector3(point.transform.position.x, elevation, (sizeY-1)*tileSize*2);
+                point.DrawLine(from, to);
+            }
+
         }
     }
 }
