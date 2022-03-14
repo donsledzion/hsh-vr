@@ -22,34 +22,27 @@ public class GraphWallBuilder : PointerSelector
 
     Transform _lastSelection;
 
-    //===========================================================
-    void Start()
-    {
-        
-    }
+    bool destroying = false;
 
+    //===========================================================
+    
     protected override void Update()
     {
         base.Update();
 
-        if (_selection != null)
+        if(Input.GetKeyDown(KeyCode.LeftControl))            
+            destroying = true;
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            if (pileInstance == null)
-                pileInstance = Instantiate(wallStartPilePrefab, _selection.position, wallStartPilePrefab.transform.rotation);
-            else
-                pileInstance.transform.position = _selection.position;
-
-            if (source != null)
-            {
-                destination = _selection.gameObject.GetComponent<GraphGridPoint>();
-                if (_selection != _lastSelection)
-                {
-                    pathFinder.RestoreDefaultGridColor();
-                    prototypeWallPath = pathFinder.PathBFS(source, destination);
-                    DrawWallPrototype();
-                }
-            }
+            if (destroying)
+                DestroyWallsOnPath();
+            destroying = false;
         }
+
+        if(!destroying)
+            TryToBuild();
+        else
+            TryToDestroy();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -70,21 +63,64 @@ public class GraphWallBuilder : PointerSelector
             source = null;
             destination = null;
 
+            if (destroying)
+                DestroyWallsOnPath();
+            else
             if (prototypeWallsContainer.childCount > 0)
             {
-                for(int i = 0; i < prototypeWallPathArray.Length - 1; i++)
+                for (int i = 0; i < prototypeWallPathArray.Length - 1; i++)
                 {
                     prototypeWallPathArray[i].MarkNeighbour(prototypeWallPathArray[i + 1]);
                 }
                 MoveChildren(prototypeWallsContainer, wallsContainer);
             }
         }
-
         _lastSelection = _selection;
-
     }
 
-    public void DrawWallPrototype()
+    void TryToBuild()
+    {
+        if(!UpdatePilePosition()) return;
+        pileInstance?.GetComponent<WallStartPileToggler>().SetBuilder();
+        if (source != null)
+        {
+            destination = _selection.gameObject.GetComponent<GraphGridPoint>();
+            if (_selection != _lastSelection)
+            {
+                pathFinder.RestoreDefaultGridColor();
+                prototypeWallPath = pathFinder.PathBFS(source, destination);
+                DrawWallPrototype();
+            }
+        }
+    }
+
+    void TryToDestroy()
+    {
+        if (!UpdatePilePosition()) return;
+        pileInstance?.GetComponent<WallStartPileToggler>().SetDestroyer();
+        if (source != null && source.HasAnyWall())
+        {
+            destination = _selection.gameObject.GetComponent<GraphGridPoint>();
+            if (_selection != _lastSelection)
+            {
+                pathFinder.RestoreDefaultGridColor();
+                prototypeWallPath = pathFinder.PathBFS(source, destination);
+            }
+        }
+    }
+
+    bool UpdatePilePosition()
+    {
+        if (_selection == null) return false;
+
+        if (pileInstance == null)
+            pileInstance = Instantiate(wallStartPilePrefab, _selection.position, wallStartPilePrefab.transform.rotation);
+        else
+            pileInstance.transform.position = _selection.position;
+        return true;
+    }
+
+    void DrawWallPrototype()
     {
         ClearContainer(prototypeWallsContainer.gameObject);
         prototypeWallPathArray = new GraphGridPoint[prototypeWallPath.Count];
@@ -99,8 +135,12 @@ public class GraphWallBuilder : PointerSelector
             if (!prototypeWallPathArray[i].HasWallTowards(prototypeWallPathArray[i + 1]))
             {
                 GameObject newSection = Instantiate(graphWallPrefab, spawnPoint, Quaternion.identity);
+
+                newSection.GetComponent<WallPanel>().anchorStart = prototypeWallPathArray[i];
+                newSection.GetComponent<WallPanel>().anchorEnd = prototypeWallPathArray[i+1];
+
                 newSection.transform.localEulerAngles = newSection.transform.localEulerAngles =
-                new Vector3(newSection.transform.eulerAngles.x, rotation, newSection.transform.eulerAngles.z);
+                    new Vector3(newSection.transform.eulerAngles.x, rotation, newSection.transform.eulerAngles.z);
                 WallPanelScaler wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
                 wallPanelScaler.ScaleX(scale);
                 newSection.transform.SetParent(prototypeWallsContainer);
@@ -124,6 +164,31 @@ public class GraphWallBuilder : PointerSelector
             if (moved.transform.parent == source.transform)
                 moved.SetParent(destination);
         }
+        ClearPath();
+    }
+
+    void DestroyWallsOnPath()
+    {
+        prototypeWallPathArray = new GraphGridPoint[prototypeWallPath.Count];
+        prototypeWallPathArray = prototypeWallPath.ToArray();
+
+        for(int i  = 0; i < prototypeWallPath.Count-1; i++)
+        {
+            foreach(WallPanel wall in wallsContainer.GetComponentsInChildren<WallPanel>())
+            {
+                if(wall.MatchAnchors(prototypeWallPathArray[i], prototypeWallPathArray[i+1]))
+                {
+                    Destroy(wall.gameObject);
+                    prototypeWallPathArray[i].ReleaseWallBinding(prototypeWallPathArray[i + 1]);
+                }
+            }
+        }
+    }
+
+    void ClearPath()
+    {
+        prototypeWallPathArray = new GraphGridPoint[0];
+        prototypeWallPath.Clear();
     }
 
     public void ClearSelectionPair()

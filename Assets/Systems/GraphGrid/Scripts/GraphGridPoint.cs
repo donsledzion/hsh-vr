@@ -216,6 +216,74 @@ public class GraphGridPoint : MonoBehaviour
         return false;
     }
 
+    public void ReleaseWallBinding(GraphGridPoint other)
+    {
+        if (wallsConnections.N == other)
+        {
+            wallsConnections.N = null;
+            other.wallsConnections.S = null;
+            return;
+        }
+        if (wallsConnections.S == other)
+        {
+            wallsConnections.S = null;
+            other.wallsConnections.N = null;
+            return;
+        }
+        if (wallsConnections.E == other)
+        {
+            wallsConnections.E = null;
+            other.wallsConnections.W = null;
+            return;
+        }
+        if (wallsConnections.W == other)
+        {
+            wallsConnections.W = null;
+            other.wallsConnections.E = null;
+            return;
+        }
+        if (wallsConnections.NE == other)
+        {
+            wallsConnections.NE = null;
+            other.wallsConnections.SW = null;
+            return;
+        }
+        if (wallsConnections.NW == other)
+        {
+            wallsConnections.NW = null;
+            other.wallsConnections.SE = null;
+            return;
+        }
+        if (wallsConnections.SE == other)
+        {
+            wallsConnections.SE = null;
+            other.wallsConnections.NW = null;
+            return;
+        }
+        if (wallsConnections.SW == other)
+        {
+            wallsConnections.SW = null;
+            other.wallsConnections.NE = null;
+            return;
+        }
+
+    }
+
+    public bool HasAnyWall()
+    {
+        if (wallsConnections.N != null ||
+            wallsConnections.S != null ||
+            wallsConnections.E != null ||
+            wallsConnections.W != null ||
+            wallsConnections.NE != null ||
+            wallsConnections.NW != null ||
+            wallsConnections.SE != null ||
+            wallsConnections.SW != null
+            )
+            return true;
+        return false;
+    }
+
     private void OnDrawGizmos()
     {
 #if UNITY_EDITOR
