@@ -105,6 +105,7 @@ public class GraphWallBuilder : PointerSelector
             {
                 pathFinder.RestoreDefaultGridColor();
                 prototypeWallPath = pathFinder.PathBFS(source, destination);
+                PaintWalls(prototypeWallPath);
             }
         }
     }
@@ -182,6 +183,19 @@ public class GraphWallBuilder : PointerSelector
                     prototypeWallPathArray[i].ReleaseWallBinding(prototypeWallPathArray[i + 1]);
                 }
             }
+        }
+    }
+
+    void PaintWalls(List<GraphGridPoint> points)
+    {
+        GraphGridPoint[] array = new GraphGridPoint[points.Count];
+        array = points.ToArray();
+        foreach(WallPanel wall in wallsContainer.GetComponentsInChildren<WallPanel>())
+        {
+            if (wall.MatchPath(points))
+                wall.PaintDeleted();
+            else
+                wall.PaintOriginal();
         }
     }
 

@@ -20,8 +20,7 @@ public class WallPanel : MonoBehaviour
     public GraphGridPoint anchorStart, anchorEnd;
     [SerializeField] Material originalMaterial, deletingMaterial;
     [SerializeField] Renderer[] renderers;
-
-    
+        
     public void SetParameters(Vector3 _spawnPosition, float _rotationAngle, float _scale)
     {
         creationData.spawnPosition = _spawnPosition;
@@ -40,5 +39,34 @@ public class WallPanel : MonoBehaviour
             || (anchorStart == p2 && anchorEnd == p1))
                 return true;
         return false;
+    }
+
+    public bool MatchPath(List<GraphGridPoint> path)
+    {
+        foreach(GraphGridPoint point in path)
+        {
+            if (anchorStart == point && path.Contains(anchorEnd))
+                return true;
+            if (anchorEnd == point && path.Contains(anchorStart))
+                return true;
+        }
+
+        return false;
+    }
+
+    public void PaintOriginal()
+    {
+        foreach (Renderer renderer in renderers)
+            renderer.material = originalMaterial;
+    }
+
+    public void PaintDeleted()
+    {
+        foreach (Renderer renderer in renderers)
+        {
+            Debug.Log("Deleting material...");
+            renderer.material = deletingMaterial;
+        }
+            
     }
 }

@@ -567,3 +567,11 @@ MonoBehaviour:
     spawnPosition: {x: 0, y: 0, z: 0}
     rotationAngle: 0
     scale: 0
+  anchorStart: {fileID: 0}
+  anchorEnd: {fileID: 0}
+  originalMaterial: {fileID: 2100000, guid: 69a8cb305de9e1d419357f6b72abc02f, type: 2}
+  deletingMaterial: {fileID: 2100000, guid: 85347552cfd6fd5438a7df314463b6cd, type: 2}
+  renderers:
+  - {fileID: 8466756060366409002}
+  - {fileID: 460033845653401574}
+  - {fileID: 2592160454974088196}
