@@ -74,4 +74,18 @@ public class GraphGridController : MonoBehaviour
 
         }
     }
+
+    public GraphGridPoint GetPointByPosition(float _x, float _y)
+    {
+        foreach(GraphGridPoint point in gridPoints)
+        {
+            if (point.position.x == _x && point.position.y == _y)
+                return point;
+        }        
+        return null;
+    }
+    public GraphGridPoint GetPointByPosition(Vector2 _pos)
+    {
+        return GetPointByPosition(_pos.x, _pos.y);
+    }
 }

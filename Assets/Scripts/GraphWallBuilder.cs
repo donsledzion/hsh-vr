@@ -22,7 +22,8 @@ public class GraphWallBuilder : PointerSelector
 
     Transform _lastSelection;
 
-    bool destroying = false;
+    [SerializeField] bool destroying = false;
+    [SerializeField] bool rectBuilding = false;
 
     //===========================================================
     
@@ -32,6 +33,8 @@ public class GraphWallBuilder : PointerSelector
 
         if(Input.GetKeyDown(KeyCode.LeftControl))            
             destroying = true;
+        rectBuilding = Input.GetKey(KeyCode.LeftShift);
+
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             if (destroying)
@@ -81,14 +84,20 @@ public class GraphWallBuilder : PointerSelector
     void TryToBuild()
     {
         if(!UpdatePilePosition()) return;
-        pileInstance?.GetComponent<WallStartPileToggler>().SetBuilder();
+        if(rectBuilding)
+            pileInstance?.GetComponent<WallStartPileToggler>().SetRectBuilder();
+        else
+            pileInstance?.GetComponent<WallStartPileToggler>().SetBuilder();
         if (source != null)
         {
             destination = _selection.gameObject.GetComponent<GraphGridPoint>();
             if (_selection != _lastSelection)
             {
                 pathFinder.RestoreDefaultGridColor();
-                prototypeWallPath = pathFinder.PathBFS(source, destination);
+                if(rectBuilding)
+                    prototypeWallPath = pathFinder.RectPathFind(source, destination);
+                else
+                    prototypeWallPath = pathFinder.PathBFS(source, destination);
                 DrawWallPrototype();
             }
         }

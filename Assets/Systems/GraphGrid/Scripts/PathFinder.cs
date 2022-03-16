@@ -41,6 +41,31 @@ public class PathFinder : MonoBehaviour
         return PathBFS(wallBuilder.selectionPair.ToArray()[0], wallBuilder.selectionPair.ToArray()[1]);
     }
 
+    public List<GraphGridPoint> RectPathFind(GraphGridPoint startPoint, GraphGridPoint endPoint)
+    {
+        GraphGridPoint interPoint1 = gridController.GetPointByPosition(startPoint.position.x,endPoint.position.y);
+        GraphGridPoint interPoint2 = gridController.GetPointByPosition(endPoint.position.x,startPoint.position.y);
+
+        List<GraphGridPoint> pathA = PathBFS(interPoint1, startPoint);
+        List<GraphGridPoint> pathB = PathBFS(endPoint, interPoint1);
+        List<GraphGridPoint> pathC = PathBFS(interPoint2, endPoint);
+        List<GraphGridPoint> pathD = PathBFS(interPoint2,startPoint);
+
+        List<GraphGridPoint> rectPath = pathA;
+
+        JoinPaths(rectPath, pathB);
+        JoinPaths(rectPath, pathC);
+        JoinPaths(rectPath, pathD);
+        rectPath.Add(startPoint);
+        return rectPath;
+    }
+
+    void JoinPaths(List<GraphGridPoint> basePath, List<GraphGridPoint> joiningPath)
+    {
+        foreach (GraphGridPoint candidatePoint in joiningPath)
+            if (!basePath.Contains(candidatePoint)) basePath.Add(candidatePoint);
+    }
+
     public List<GraphGridPoint> PathBFS(GraphGridPoint startPoint, GraphGridPoint endPoint)
     {
         List<GraphGridPoint> pathTrace = new List<GraphGridPoint>();
