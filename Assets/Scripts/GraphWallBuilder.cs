@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GraphWallBuilder : PointerSelector
+public class GraphWallBuilder : SectionSpawner
 {
     [SerializeField] GameObject graphWallPrefab;
     [SerializeField] GameObject wallStartPilePrefab;
@@ -137,25 +137,13 @@ public class GraphWallBuilder : PointerSelector
         prototypeWallPathArray = prototypeWallPath.ToArray();
         for(int i = 0; i < prototypeWallPathArray.Length-1; i++)
         {
-            Vector3 progresVector = (prototypeWallPathArray[i + 1].transform.position - prototypeWallPathArray[i].transform.position);
-            float scale = progresVector.magnitude;
-            Vector3 spawnPoint = prototypeWallPathArray[i].transform.position;
-            float rotation = Vector3.SignedAngle(Vector3.right, progresVector, Vector3.up);
-
-            if (!prototypeWallPathArray[i].HasWallTowards(prototypeWallPathArray[i + 1]))
-            {
-                GameObject newSection = Instantiate(graphWallPrefab, spawnPoint, Quaternion.identity);
-
-                newSection.GetComponent<WallPanel>().anchorStart = prototypeWallPathArray[i];
-                newSection.GetComponent<WallPanel>().anchorEnd = prototypeWallPathArray[i+1];
-
-                newSection.transform.localEulerAngles = newSection.transform.localEulerAngles =
-                    new Vector3(newSection.transform.eulerAngles.x, rotation, newSection.transform.eulerAngles.z);
-                WallPanelScaler wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
-                wallPanelScaler.ScaleX(scale);
-                newSection.transform.SetParent(prototypeWallsContainer);
-            }
+            if (!prototypeWallPathArray[i].HasWallTowards(prototypeWallPathArray[i+1]))
+                CreateSection(prototypeWallPathArray[i + 1],
+                                prototypeWallPathArray[i],
+                                graphWallPrefab,
+                                prototypeWallsContainer);
         }
+            
     }
 
     public void ClearContainer(GameObject container)
@@ -217,5 +205,13 @@ public class GraphWallBuilder : PointerSelector
     public void ClearSelectionPair()
     {
         selectionPair.Clear();
+    }
+
+    private void OnDisable()
+    {
+        if (pileInstance != null)
+            Destroy(pileInstance);
+        source = null;
+        destination = null;
     }
 }

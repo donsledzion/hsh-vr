@@ -49,7 +49,7 @@ public class PathFinder : MonoBehaviour
         List<GraphGridPoint> pathA = PathBFS(interPoint1, startPoint);
         List<GraphGridPoint> pathB = PathBFS(endPoint, interPoint1);
         List<GraphGridPoint> pathC = PathBFS(interPoint2, endPoint);
-        List<GraphGridPoint> pathD = PathBFS(interPoint2,startPoint);
+        List<GraphGridPoint> pathD = PathBFS(startPoint,interPoint2);
 
         List<GraphGridPoint> rectPath = pathA;
 
