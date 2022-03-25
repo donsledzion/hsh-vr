@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WallPanelScaler : MonoBehaviour
 {
-    [SerializeField] GameObject scalableObject;
-    [SerializeField] public GameObject endingTip;
-    // Start is called before the first frame update
+    [SerializeField] protected GameObject scalableObject;
+    [SerializeField] protected GameObject endingTip;
     
-    public void ScaleX(float scale)
+    public virtual void ScaleX(float scale)
     {
         scalableObject.transform.localScale = new Vector3(scale,1f,1f);
+        endingTip.transform.Translate(Vector3.right * scale);
     }
 }

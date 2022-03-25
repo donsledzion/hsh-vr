@@ -114,7 +114,6 @@ public class WallBuilder : PointerSelector
             new Vector3(newSection.transform.eulerAngles.x, _rotationAngle, newSection.transform.eulerAngles.z);
         wallPanelScaler = newSection.GetComponent<WallPanelScaler>();
         wallPanelScaler.ScaleX(_scale);
-        wallPanelScaler.endingTip.transform.localPosition = new Vector3(_scale, 0, 0);
         wallPanelScaler.transform.SetParent(wallsContainer);
 
         WallPanel wallPanel = newSection.GetComponent<WallPanel>();

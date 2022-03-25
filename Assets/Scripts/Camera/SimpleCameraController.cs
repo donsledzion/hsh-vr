@@ -80,8 +80,8 @@ public class SimpleCameraController : MonoBehaviour
     public bool invertY = false;
 
     [Tooltip("Intensity of zoom in/out using mouse scroll wheel.")]
-    [Range(0.2f, 10f)]
-    public float scrollSpeed = 1f;
+    [Range(0.2f, 20f)]
+    public float scrollSpeed = 10f;
     [Space]
     [SerializeField] bool adjustingInProgres = false;
     [SerializeField] TilesGridController gridController;
