@@ -13,7 +13,7 @@ public class PointerSelector : MonoBehaviour
         {
             _selection = null;
         }
-
+        //var ray = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray,out hit,Mathf.Infinity,layerMask))
