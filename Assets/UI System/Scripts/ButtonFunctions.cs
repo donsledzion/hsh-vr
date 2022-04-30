@@ -54,11 +54,9 @@ public class ButtonFunctions : MonoBehaviour
 
     public void HideAllModalWindow(){
 
-        if(SlideDownMenu){
         SettingsModalWindow.SetActive(false);
         MainMenuModalWindow.SetActive(false);
         ExitModalWindow.SetActive(false);
-        }
     }
 
     public void ExitApp(){
