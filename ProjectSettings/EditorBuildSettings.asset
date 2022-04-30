@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GraphWalls.unity
     guid: 1b3f280a8eae46841ae875f76df56053
+  - enabled: 1
+    path: Assets/Scenes/MainMenu 1.unity
+    guid: b8895d44964884b30b4bca9819f183b9
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: bf3aea1f9284cfc47888cd23b4694d48, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a2972ece3c6637f469e63fd6750153c2, type: 2}
