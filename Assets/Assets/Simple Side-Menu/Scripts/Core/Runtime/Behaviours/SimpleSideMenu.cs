@@ -49,6 +49,8 @@ namespace DanielLochner.Assets.SimpleSideMenu
         private Image overlayImage, blurImage;
         private CanvasScaler canvasScaler;
         private Canvas canvas;
+            
+
         #endregion
 
         #region Properties
@@ -138,7 +140,6 @@ namespace DanielLochner.Assets.SimpleSideMenu
         {
             get => onStateChanged;
         }
-
         public State CurrentState
         {
             get;
@@ -480,6 +481,7 @@ namespace DanielLochner.Assets.SimpleSideMenu
         public void Close()
         {
             SetState(State.Closed);
+            
         }     
         #endregion
     }
