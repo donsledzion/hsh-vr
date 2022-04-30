@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class BuildOptionController : MonoBehaviour
 {
     [SerializeField] GameObject wallsBuilder;
+
     [SerializeField] GameObject singleDoorsBuilder;
+    [SerializeField] GameObject doorsModelPicker;
+
     [SerializeField] GameObject singleWindowsBuilder;
 
     public void BuildWalls()
@@ -35,7 +38,8 @@ public class BuildOptionController : MonoBehaviour
             case BuildOption.BuildSingleDoors:
             {
                     ShutDownAll();
-                    singleDoorsBuilder.gameObject.SetActive(true);                    
+                    singleDoorsBuilder.gameObject.SetActive(true);
+                    doorsModelPicker.gameObject.SetActive(true);
                     break;
             }
             case BuildOption.BuildSingleWindows:
@@ -53,6 +57,7 @@ public class BuildOptionController : MonoBehaviour
     {
         wallsBuilder.SetActive(false);
         singleDoorsBuilder.SetActive(false);
+        doorsModelPicker.SetActive(false);
         singleWindowsBuilder.SetActive(false);
     }
 }
