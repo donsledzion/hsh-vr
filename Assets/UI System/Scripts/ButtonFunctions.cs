@@ -44,8 +44,8 @@ public class ButtonFunctions : MonoBehaviour
     public void ShowSettingsModalWindow(){
 
         SettingsModalWindow.SetActive(true);
-        MainMenuModalWindow.SetActive(false);
-        ExitModalWindow.SetActive(false);
+//        MainMenuModalWindow.SetActive(false);
+//        ExitModalWindow.SetActive(false);
     }
 
     public void HideSettingsModalWindow(){
