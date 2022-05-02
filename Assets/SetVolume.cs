@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class SetVolume : MonoBehaviour
 {
     public AudioMixer VolMixer;
-
     public Slider musicSlider;
+
 
     public void SetLevelOfVolume(float SliderValue){
 
@@ -16,7 +16,7 @@ public class SetVolume : MonoBehaviour
 
     }
 
-private void Awake(){
+    private void Awake(){
 
         float valueofmusic;
         float calculate;
