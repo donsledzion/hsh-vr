@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class ButtonFunctions : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public GameObject ExitModalWindow;
     public GameObject MainMenuModalWindow;
     public GameObject SettingsModalWindow;
@@ -60,9 +48,12 @@ public class ButtonFunctions : MonoBehaviour
     }
 
     public void ExitApp(){
-
-        Application.Quit();
-        Debug.Log("Quit");
+                
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#else
+    Application.Quit();
+            Debug.Log("Quit");
+#endif
     }
 }

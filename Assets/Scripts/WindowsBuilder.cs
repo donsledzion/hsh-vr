@@ -27,6 +27,13 @@ public class WindowsBuilder : SectionSpawner
                 windowInstance = null;
             }
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (windowInstance != null)
+            {
+                TurnAround();
+            }
+        }
 
 
         if (_selection != null)
@@ -46,5 +53,10 @@ public class WindowsBuilder : SectionSpawner
             }
         }
         _lastSelection = _selection;
+    }
+
+    void TurnAround()
+    {
+        windowInstance.GetComponent<WindowModel>().TurnAround();
     }
 }
