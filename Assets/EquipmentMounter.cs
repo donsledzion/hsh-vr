@@ -34,7 +34,7 @@ public class EquipmentMounter : MonoBehaviour
 
 
             if (Input.GetKeyDown(KeyCode.R))
-                equipmentInstance.GetComponent<Equipment>().Rotate(90f);
+                equipmentInstance.GetComponent<Equipment>().Rotate(45f);
         }
     }
 

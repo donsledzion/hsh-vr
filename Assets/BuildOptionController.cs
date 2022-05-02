@@ -53,7 +53,7 @@ public class BuildOptionController : MonoBehaviour
         }
     }
 
-    void ShutDownAll()
+    public void ShutDownAll()
     {
         wallsBuilder.SetActive(false);
         singleDoorsBuilder.SetActive(false);
