@@ -255,7 +255,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2756880527357644073}
   - component: {fileID: 2756880527357644072}
-  m_Layer: 0
+  - component: {fileID: 4662886814654564767}
+  m_Layer: 15
   m_Name: Dresser_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +271,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2756880527357644074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7462049, y: 0.01, z: 0.3576636}
+  m_LocalPosition: {x: 4.4886613, y: 0.01, z: 15.427523}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203421149250330726}
@@ -293,6 +294,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   roomTag: 2
+--- !u!65 &4662886814654564767
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756880527357644074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.42045784, y: 0.641367, z: 1}
+  m_Center: {x: 0.0011453629, y: 0.3177608, z: 0}
 --- !u!1 &2855109421455283604
 GameObject:
   m_ObjectHideFlags: 0

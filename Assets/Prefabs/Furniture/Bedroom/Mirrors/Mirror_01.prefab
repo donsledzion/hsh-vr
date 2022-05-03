@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4967088538069467814}
   - component: {fileID: 3654668648213836017}
-  m_Layer: 0
+  - component: {fileID: 830333967291511827}
+  m_Layer: 15
   m_Name: Mirror_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961838844076175426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4911435, y: 0.01, z: 7.3664417}
+  m_LocalPosition: {x: 7.495605, y: 0.01, z: 16.203783}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4011843993514081707}
@@ -48,6 +49,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   roomTag: 2
+--- !u!65 &830333967291511827
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961838844076175426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1633439, y: 1.5546718, z: 0.8970933}
+  m_Center: {x: 0.051703453, y: 1.7626357, z: 0.0030267239}
 --- !u!1 &5731308665906700149
 GameObject:
   m_ObjectHideFlags: 0

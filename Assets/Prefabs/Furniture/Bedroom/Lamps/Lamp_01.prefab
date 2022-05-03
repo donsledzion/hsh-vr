@@ -91,7 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6002227503570891080}
   - component: {fileID: 6002227503570891081}
-  m_Layer: 0
+  - component: {fileID: 1050403474243373452}
+  m_Layer: 15
   m_Name: Lamp_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6002227503570891079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.23934676, y: 0.01, z: 28.210337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7048115090088599343}
@@ -130,6 +131,19 @@ MonoBehaviour:
     m_Bits: 16384
   roomTag: 2
   lights: []
+--- !u!65 &1050403474243373452
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002227503570891079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0913081, y: 0.12276554, z: 1.0801735}
+  m_Center: {x: -0.0011136532, y: 3.7461448, z: 0.0022268295}
 --- !u!1 &6237408689234040682
 GameObject:
   m_ObjectHideFlags: 0

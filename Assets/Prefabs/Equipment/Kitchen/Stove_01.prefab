@@ -1809,7 +1809,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8520971613077215007}
-  m_Layer: 0
+  - component: {fileID: 8129532176307810280}
+  m_Layer: 15
   m_Name: Stove_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1831,6 +1832,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8129532176307810280
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520971613077215006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.57644266, y: 1.0401263, z: 0.68344665}
+  m_Center: {x: 0.020063251, y: 0.52387357, z: -0.0022292137}
 --- !u!1 &8523795784622774025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2100,7 +2114,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9076809647857196013}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.23, y: 0.01, z: 6.46}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 4174800570523192368}

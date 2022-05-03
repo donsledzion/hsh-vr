@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5974043771719927617}
   - component: {fileID: 5974043771719927616}
-  m_Layer: 0
+  - component: {fileID: 3034460408219073867}
+  m_Layer: 15
   m_Name: FloorLamp_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +48,21 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16384
+  roomTag: 0
   lights: []
+--- !u!65 &3034460408219073867
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5974043771719927623}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.29672623, y: 1.6668079, z: 0.26546955}
+  m_Center: {x: 0.007814407, y: 0.82830036, z: -0.0026049614}
 --- !u!1001 &5974043773311023933
 PrefabInstance:
   m_ObjectHideFlags: 0

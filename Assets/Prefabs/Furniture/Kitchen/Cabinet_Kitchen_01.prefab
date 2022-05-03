@@ -254,7 +254,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2780418570001897711}
   - component: {fileID: 2780418570001897708}
-  m_Layer: 0
+  - component: {fileID: 5563579853790401768}
+  m_Layer: 15
   m_Name: Cabinet_Kitchen_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2780418570001897710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.756368, y: 0.01, z: 11.890607}
+  m_LocalPosition: {x: 3.4128156, y: 0.01, z: 17.74383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1528233419322034462}
@@ -292,6 +293,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   roomTag: 0
+--- !u!65 &5563579853790401768
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780418570001897710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.60153484, y: 0.82893103, z: 0.7016716}
+  m_Center: {x: 0.032336235, y: 0.41098264, z: 0.0010433197}
 --- !u!1 &3324477510156067238
 GameObject:
   m_ObjectHideFlags: 0
