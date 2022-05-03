@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326059216426719483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.8893082, y: 0.01, z: 11.752736}
+  m_LocalPosition: {x: 3.5639758, y: 0.01, z: 14.638959}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3646082856281981095}
@@ -47,6 +47,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16384
+  roomTag: 0
 --- !u!1001 &6653571324124401627
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -128,6 +128,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16384
+  roomTag: 2
   lights: []
 --- !u!1 &6237408689234040682
 GameObject:

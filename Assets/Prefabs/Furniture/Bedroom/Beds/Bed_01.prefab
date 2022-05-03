@@ -293,6 +293,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16384
+  roomTag: 2
 --- !u!1 &1803819959584212790
 GameObject:
   m_ObjectHideFlags: 0
