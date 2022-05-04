@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EquipmentMounter : MonoBehaviour
 {
@@ -8,10 +9,10 @@ public class EquipmentMounter : MonoBehaviour
     [SerializeField] GameObject equipmentInstance;
     protected Transform _mountPoint;
     [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask UILayer;
 
     private void Update()
     {
-        
         if (equipmentPrefab != null)
         {
             layerMask = equipmentPrefab.GetComponent<Equipment>().layerMask;
@@ -30,8 +31,6 @@ public class EquipmentMounter : MonoBehaviour
                     equipmentInstance = null;
                 }
             }
-                
-
 
             if (Input.GetKeyDown(KeyCode.R))
                 equipmentInstance.GetComponent<Equipment>().Rotate(45f);
@@ -46,6 +45,12 @@ public class EquipmentMounter : MonoBehaviour
         }
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, UILayer))
+        {
+            Debug.Log("UI HIT!");
+        }
+
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             _mountPoint = equipmentPrefab.transform;

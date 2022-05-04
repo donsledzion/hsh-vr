@@ -9,7 +9,9 @@ public class MainManager : MonoBehaviour
 
     [SerializeField] WallBuilder wallBuilder;
     [SerializeField] TilesGridController tilesGridController;
-    
+
+
+    public bool cursorOverUI;
 
     public GameObject wallsContainer;
 

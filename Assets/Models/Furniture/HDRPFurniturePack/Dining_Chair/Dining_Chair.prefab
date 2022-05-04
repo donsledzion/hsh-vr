@@ -172,7 +172,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8588115379147445898}
   - component: {fileID: 2338388773384427574}
-  m_Layer: 0
+  - component: {fileID: 5236744884406853515}
+  m_Layer: 15
   m_Name: Dining_Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8588115379147016874}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.3831544, y: 0.01, z: 11.488609}
+  m_LocalPosition: {x: 7.3797398, y: 0.01, z: 17.658285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8588115379147445896}
@@ -213,6 +214,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16384
   roomTag: 0
+--- !u!65 &5236744884406853515
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588115379147016874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48546168, y: 0.78057885, z: 0.53887415}
+  m_Center: {x: -0.0008902401, y: 0.38923478, z: -0.00089019537}
 --- !u!1 &8588115379147016876
 GameObject:
   m_ObjectHideFlags: 0

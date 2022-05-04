@@ -11,6 +11,7 @@ public class EquipmentSelectionTool : PointerSelector
     protected override void Update()
     {
         base.Update();
+
         if (_selection != null)
         {
             Debug.Log(_selection.gameObject.name);
