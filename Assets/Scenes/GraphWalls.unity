@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28502586, g: 0.37139237, b: 0.4960093, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502592, g: 0.37139234, b: 0.49601153, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6027,8 +6027,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1829.5737, y: -645.87897}
-  m_SizeDelta: {x: 418.4575, y: 1065.7708}
+  m_AnchoredPosition: {x: -1829.5737, y: -169.43286}
+  m_SizeDelta: {x: 418.457, y: 2018.663}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &483752013
 MonoBehaviour:
@@ -6470,7 +6470,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 531582544}
         m_TargetAssemblyTypeName: BuildOptionController, Assembly-CSharp
-        m_MethodName: ShutDownAll
+        m_MethodName: PickElements
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6479,18 +6479,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1990094629}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &507542340
 MonoBehaviour:
@@ -7025,6 +7013,7 @@ MonoBehaviour:
   singleDoorsBuilder: {fileID: 2133032394}
   doorsModelPicker: {fileID: 1928661732}
   singleWindowsBuilder: {fileID: 1639842146}
+  equipmentSelectionTool: {fileID: 0}
 --- !u!1 &535834584
 GameObject:
   m_ObjectHideFlags: 0

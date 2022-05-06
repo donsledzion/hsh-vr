@@ -43,5 +43,6 @@ public class EquipmentSelectionTool : PointerSelector
             selectionPointerInstance = null;
         }
     }
+
     
 }

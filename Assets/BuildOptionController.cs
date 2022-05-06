@@ -12,6 +12,8 @@ public class BuildOptionController : MonoBehaviour
 
     [SerializeField] GameObject singleWindowsBuilder;
 
+    [SerializeField] GameObject equipmentSelectionTool;
+
     public void BuildWalls()
     {
         SelectOption(BuildOption.BuildWalls);
@@ -23,6 +25,11 @@ public class BuildOptionController : MonoBehaviour
     public void BuildSingleWindows()
     {
         SelectOption(BuildOption.BuildSingleWindows);
+    }
+
+    public void PickElements()
+    {
+
     }
 
     void SelectOption(BuildOption option)
@@ -48,6 +55,12 @@ public class BuildOptionController : MonoBehaviour
                     singleWindowsBuilder.gameObject.SetActive(true);                    
                     break;
             }
+            case BuildOption.PickObjects:
+            {
+                    ShutDownAll();
+                    equipmentSelectionTool.gameObject.SetActive(true);                    
+                    break;
+            }
                 default:
                     break;
         }
@@ -59,6 +72,7 @@ public class BuildOptionController : MonoBehaviour
         singleDoorsBuilder.SetActive(false);
         doorsModelPicker.SetActive(false);
         singleWindowsBuilder.SetActive(false);
+        equipmentSelectionTool.SetActive(false);
     }
 }
 
@@ -69,5 +83,6 @@ public enum BuildOption
     BuildDoubleDoors,
     BuildSingleWindows,
     BuilDoubleWindows,
-    BuildTripleWindows
+    BuildTripleWindows,
+    PickObjects
 }
