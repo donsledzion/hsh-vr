@@ -29,7 +29,7 @@ public class BuildOptionController : MonoBehaviour
 
     public void PickElements()
     {
-
+        SelectOption(BuildOption.PickObjects);
     }
 
     void SelectOption(BuildOption option)
